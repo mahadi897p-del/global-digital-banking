@@ -215,23 +215,69 @@
             <input type="text" id="fTrx" placeholder="Enter TrxID">
             <button class="btn-next" onclick="showStep(4)">আমানত জমা করুন</button>
     
+<div id="step4" class="card" style="display:none">
+    <h2>Security Deposit (2%)</h2>
+    <p style="text-align:center; font-weight:bold; color:var(--danger);">
+        প্রদেয় আমানত: ৳ <span id="sAmt">700</span>
+    </p>
 
-
-    <div id="step4" class="card" style="display:none">    <h2>Security Deposit (2%)</h2>
-        <p style="text-align:center; font-weight:bold; color:var(--danger);">প্রদেয় আমানত: ৳ <span id="sAmt">700</span></p>
-        <div class="pay-box-large">
-            <div class="pay-header">সঞ্চয় পেমেন্ট পদ্ধতি</div>
-            <div class="pay-grid">
-                <div class="pay-item" onclick="openPay('bKash', 'সাময়িক সময়ের জন্য বন্ধ আছে, নগদ সিলেক্ট করুন', 's')">
-                    <img src="https://www.logo.wine/a/logo/BKash/BKash-Logo.wine.svg">
-                    <p>Bkash</p>
-                </div>
-                <div class="pay-item" onclick="openPay('Nagad', '01350028847', 's')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nagad_Logo.svg/1024px-Nagad_Logo.svg.png">
-                    <p>Nagad</p>
-                </div>
+    <div class="pay-box-large">
+        <div class="pay-header">সঞ্চয় পেমেন্ট পদ্ধতি</div>
+        <div class="pay-grid">
+            <div class="pay-item" onclick="openPay('bKash', 'সাময়িক সময়ের জন্য বন্ধ আছে, নগদ সিলেক্ট করুন', 's')">
+                <img src="https://www.logo.wine/a/logo/BKash/BKash-Logo.wine.svg">
+                <p>Bkash</p>
+            </div>
+            <div class="pay-item" onclick="openPay('Nagad', '01350028847', 's')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nagad_Logo.svg/1024px-Nagad_Logo.svg.png">
+                <p>Nagad</p>
             </div>
         </div>
+    </div>
+
+    <div id="sInstr" style="display:none">
+        <div class="copy-area">
+            <b id="sNum"></b>
+            <button onclick="copyText('sNum')">Copy</button>
+        </div>
+        <input type="text" id="sTrx" placeholder="Enter Deposit TrxID">
+        <button class="btn-next" onclick="showFinal()">স্লিপ সংগ্রহ করুন</button>
+    </div>
+</div>
+
+<script>
+    // এই ফাংশনটি দিয়ে ২% বা অন্যান্য পেমেন্ট হ্যান্ডেল করা হবে
+    function openPay(method, detail, type) {
+        if (method === 'bKash') {
+            alert(detail);
+            return;
+        }
+
+        if (type === 's') {
+            // আমানতের ইনস্ট্রাকশন বক্স শো করবে
+            document.getElementById('sInstr').style.display = 'block';
+            document.getElementById('sNum').innerText = detail;
+        }
+    }
+
+    function copyText(id) {
+        var text = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(text);
+        alert("নাম্বার কপি হয়েছে: " + text);
+    }
+
+    function showFinal() {
+        var trx = document.getElementById('sTrx').value;
+        if(trx === "") {
+            alert("অনুগ্রহ করে TrxID দিন");
+        } else {
+            // পরবর্তী স্টেপ বা স্লিপ দেখানোর ফাংশন
+            alert("আপনার পেমেন্ট ভেরিফাই করা হচ্ছে...");
+        }
+    }
+</script>
+            
+    
 
         <div id="sInstr" style="display:none">
             <div class="copy-area">
