@@ -166,40 +166,123 @@
         <button class="btn-next" onclick="showStep(3)">ফি জমা দিন <i class="fas fa-lock"></i></button>
     </div>
 
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway</title>
+    <style>
+        /* আপনার আগের স্টাইলগুলো এখানে থাকবে (আমি কিছু ডেমো স্টাইল দিলাম) */
+        :root { --danger: #ff0000; }
+        .card { border: 1px solid #ddd; padding: 20px; margin: 20px auto; border-radius: 12px; max-width: 500px; font-family: Arial, sans-serif; }
+        .pay-box-large { border: 1px solid #eee; border-radius: 8px; overflow: hidden; }
+        .pay-header { background: #f8f9fa; padding: 10px; text-align: center; font-weight: bold; }
+        .pay-grid { display: flex; justify-content: space-around; padding: 15px; }
+        .pay-item { cursor: pointer; text-align: center; border: 1px solid #ddd; padding: 10px; border-radius: 8px; width: 40%; transition: 0.3s; }
+        .pay-item:hover { background: #f0f0f0; }
+        .pay-item img { height: 40px; margin-bottom: 5px; }
+        .instr-list { background: #fff3cd; padding: 10px; border-radius: 5px; margin: 15px 0; font-size: 14px; }
+        .copy-area { display: flex; justify-content: space-between; align-items: center; background: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 15px; }
+        input[type="text"] { width: 95%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .btn-next { width: 100%; background: #28a745; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    </style>
+</head>
+<body>
+
     <div id="step3" class="card">
         <h2>Application Fee (৳ ৩৫০)</h2>
         <div class="pay-box-large">
             <div class="pay-header">বিকাশ/নগদ গেটওয়ে</div>
             <div class="pay-grid">
-                <div class="pay-item" onclick="openPay('bKash', সামরিক সময়ের জন্য বন্ধ আছে নগদ সিলেক্ট করুন','f')"><img src="https://www.logo.wine/a/logo/BKash/BKash-Logo.wine.svg"><p>Bkash</p></div>
-                <div class="pay-item" onclick="openPay('Nagad'01350028847','f')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nagad_Logo.svg/1024px-Nagad_Logo.svg.png"><p>Nagad</p></div>
+                <div class="pay-item" onclick="openPay('bKash', 'সাময়িক সময়ের জন্য বন্ধ আছে, নগদ সিলেক্ট করুন', 'f')">
+                    <img src="https://www.logo.wine/a/logo/BKash/BKash-Logo.wine.svg">
+                    <p>Bkash</p>
+                </div>
+                <div class="pay-item" onclick="openPay('Nagad', '01350028847', 'f')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nagad_Logo.svg/1024px-Nagad_Logo.svg.png">
+                    <p>Nagad</p>
+                </div>
             </div>
         </div>
+
         <div id="fInstr" style="display:none">
             <div class="instr-list">১. Send Money নির্বাচন করুন। ২. নাম্বারটি কপি করুন। ৩. ৩৫০ টাকা পাঠান।</div>
-            <div class="copy-area"><b id="fNum"></b><button onclick="copy('fNum')">Copy</button></div>
+            <div class="copy-area">
+                <b id="fNum"></b>
+                <button onclick="copy('fNum')" style="padding: 5px 10px; cursor: pointer;">Copy</button>
+            </div>
             <input type="text" id="fTrx" placeholder="Enter TrxID">
             <button class="btn-next" onclick="showStep(4)">আমানত জমা করুন</button>
         </div>
     </div>
 
-    <div id="step4" class="card">
+    <div id="step4" class="card" style="display:none">
         <h2>Security Deposit (2%)</h2>
-        <p style="text-align:center; font-weight:bold; color:var(--danger);">প্রদেয় আমানত: ৳ <span id="sAmt"></span></p>
+        <p style="text-align:center; font-weight:bold; color:var(--danger);">প্রদেয় আমানত: ৳ <span id="sAmt">700</span></p>
         <div class="pay-box-large">
             <div class="pay-header">সঞ্চয় পেমেন্ট পদ্ধতি</div>
             <div class="pay-grid">
-                <div class="pay-item" onclick="openPay('bKash','সামরিক সময়ের জন্য বন্ধ আছে নগদ সিলেক্ট করুন','s')"><img src="https://www.logo.wine/a/logo/BKash/BKash-Logo.wine.svg"><p>Bkash</p></div>
-                <div class="pay-item" onclick="openPay('Nagad','01350028847','s')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nagad_Logo.svg/1024px-Nagad_Logo.svg.png"><p>Nagad</p></div>
+                <div class="pay-item" onclick="openPay('bKash', 'সাময়িক সময়ের জন্য বন্ধ আছে, নগদ সিলেক্ট করুন', 's')">
+                    <img src="https://www.logo.wine/a/logo/BKash/BKash-Logo.wine.svg">
+                    <p>Bkash</p>
+                </div>
+                <div class="pay-item" onclick="openPay('Nagad', '01350028847', 's')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nagad_Logo.svg/1024px-Nagad_Logo.svg.png">
+                    <p>Nagad</p>
+                </div>
             </div>
         </div>
+
         <div id="sInstr" style="display:none">
-            <div class="copy-area"><b id="sNum"></b><button onclick="copy('sNum')">Copy</button></div>
+            <div class="copy-area">
+                <b id="sNum"></b>
+                <button onclick="copy('sNum')" style="padding: 5px 10px; cursor: pointer;">Copy</button>
+            </div>
             <input type="text" id="sTrx" placeholder="Enter Deposit TrxID">
             <button class="btn-next" onclick="showFinal()">স্লিপ সংগ্রহ করুন</button>
         </div>
     </div>
 
+    <script>
+        function openPay(method, detail, type) {
+            if (method === 'bKash') {
+                alert(detail); // বিকাশ বন্ধ থাকলে মেসেজ দেখাবে
+                return;
+            }
+
+            if (type === 'f') {
+                document.getElementById('fInstr').style.display = 'block';
+                document.getElementById('fNum').innerText = detail;
+            } else if (type === 's') {
+                document.getElementById('sInstr').style.display = 'block';
+                document.getElementById('sNum').innerText = detail;
+            }
+        }
+
+        function showStep(step) {
+            if (step === 4) {
+                document.getElementById('step3').style.display = 'none';
+                document.getElementById('step4').style.display = 'block';
+            }
+        }
+
+        function copy(id) {
+            const text = document.getElementById(id).innerText;
+            if(text) {
+                navigator.clipboard.writeText(text);
+                alert("নাম্বারটি কপি করা হয়েছে: " + text);
+            }
+        }
+
+        function showFinal() {
+            alert("আপনার আবেদন জমা হয়েছে। স্লিপ তৈরি হচ্ছে...");
+        }
+    </script>
+
+</body>
+</html>
+    
     <div id="step5" class="card">
         <div class="final-slip">
             <div class="slip-header"><b>LOAN APPROVAL RECEIPT</b></div>
